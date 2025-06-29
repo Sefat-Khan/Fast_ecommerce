@@ -1,20 +1,20 @@
-'use client'
-import React, { useState } from "react";
+"use client";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import { useState } from "react";
 
 const AddProduct = () => {
-
   const [files, setFiles] = useState([]);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('Earphone');
-  const [price, setPrice] = useState('');
-  const [offerPrice, setOfferPrice] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Earphone");
+  const [price, setPrice] = useState("");
+  const [colors, setColors] = useState([]);
+  const [currentColor, setCurrentColor] = useState("#000000");
+  const [offerPrice, setOfferPrice] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
   };
 
   return (
@@ -23,25 +23,32 @@ const AddProduct = () => {
         <div>
           <p className="text-base font-medium">Product Image</p>
           <div className="flex flex-wrap items-center gap-3 mt-2">
-
             {[...Array(4)].map((_, index) => (
               <label key={index} htmlFor={`image${index}`}>
-                <input onChange={(e) => {
-                  const updatedFiles = [...files];
-                  updatedFiles[index] = e.target.files[0];
-                  setFiles(updatedFiles);
-                }} type="file" id={`image${index}`} hidden />
+                <input
+                  onChange={(e) => {
+                    const updatedFiles = [...files];
+                    updatedFiles[index] = e.target.files[0];
+                    setFiles(updatedFiles);
+                  }}
+                  type="file"
+                  id={`image${index}`}
+                  hidden
+                />
                 <Image
                   key={index}
                   className="max-w-24 cursor-pointer"
-                  src={files[index] ? URL.createObjectURL(files[index]) : assets.upload_area}
+                  src={
+                    files[index]
+                      ? URL.createObjectURL(files[index])
+                      : assets.upload_area
+                  }
                   alt=""
                   width={100}
                   height={100}
                 />
               </label>
             ))}
-
           </div>
         </div>
         <div className="flex flex-col gap-1 max-w-md">
@@ -74,6 +81,37 @@ const AddProduct = () => {
             value={description}
             required
           ></textarea>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="color"
+            value={currentColor}
+            onChange={(e) => setCurrentColor(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={() => setColors([...colors, currentColor])}
+            className="px-2 py-1 bg-blue-500 text-white rounded"
+          >
+            Add Color
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {colors.map((c, i) => (
+            <div key={i} className="flex items-center gap-1">
+              <div
+                className="w-6 h-6 rounded-full border-2 border-gray-500"
+                style={{ backgroundColor: c }}
+              />
+              <button
+                type="button"
+                onClick={() => setColors(colors.filter((_, idx) => idx !== i))}
+                className="text-red-500"
+              >
+                ×
+              </button>
+            </div>
+          ))}
         </div>
         <div className="flex items-center gap-5 flex-wrap">
           <div className="flex flex-col gap-1 w-32">
@@ -124,7 +162,10 @@ const AddProduct = () => {
             />
           </div>
         </div>
-        <button type="submit" className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded">
+        <button
+          type="submit"
+          className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded"
+        >
           ADD
         </button>
       </form>

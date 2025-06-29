@@ -1,5 +1,3 @@
-import React from "react";
-
 const NewsLetter = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-2 pt-8 pb-14">
@@ -16,7 +14,7 @@ const NewsLetter = () => {
           type="text"
           placeholder="Enter your email id"
         />
-        <button className="md:px-12 px-8 h-full text-white bg-orange-600 rounded-md rounded-l-none">
+        <button className="md:px-12 px-8 h-full text-white bg-orange-600 hover:bg-orange-500 transition rounded-md rounded-l-none">
           Subscribe
         </button>
       </div>
