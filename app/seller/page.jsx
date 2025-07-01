@@ -1,7 +1,7 @@
 "use client";
-import { assets } from "@/assets/assets";
 import Image from "next/image";
 import { useState } from "react";
+import { assets } from "../assets/assets";
 
 const AddProduct = () => {
   const [files, setFiles] = useState([]);

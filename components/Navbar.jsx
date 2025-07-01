@@ -1,9 +1,9 @@
 "use client";
-import { assets, BagIcon, BoxIcon, CartIcon, HomeIcon } from "@/assets/assets";
-import { useAppContext } from "@/context/AppContext";
 import { useClerk, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { assets, BagIcon, BoxIcon, CartIcon, HomeIcon } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const { isSeller, router, user } = useAppContext();

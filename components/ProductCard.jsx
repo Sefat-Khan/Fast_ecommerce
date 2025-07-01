@@ -1,6 +1,6 @@
-import { assets } from "@/assets/assets";
-import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
+import { assets } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
   const { currency, router, isActive, setIsActive } = useAppContext();

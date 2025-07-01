@@ -1,5 +1,5 @@
-import { assets } from "@/assets/assets";
 import Image from "next/image";
+import { assets } from "../assets/assets";
 
 const Banner = () => {
   return (
