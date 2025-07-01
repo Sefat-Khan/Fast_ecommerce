@@ -2,12 +2,12 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { assets } from "../../assets/assets";
-import Footer from "../../components/Footer";
-import Loading from "../../components/Loading";
-import Navbar from "../../components/Navbar";
-import ProductCard from "../../components/ProductCard";
-import { useAppContext } from "../../context/AppContext";
+import { assets } from "../../../assets/assets";
+import Footer from "../../../components/Footer";
+import Loading from "../../../components/Loading";
+import Navbar from "../../../components/Navbar";
+import ProductCard from "../../../components/ProductCard";
+import { useAppContext } from "../../../context/AppContext";
 
 const Product = () => {
   const { id } = useParams();
