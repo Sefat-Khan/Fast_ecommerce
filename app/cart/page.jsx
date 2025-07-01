@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import { assets } from "../assets/assets";
-import Navbar from "../components/Navbar";
-import OrderSummary from "../components/OrderSummary";
-import { useAppContext } from "../context/AppContext";
+import { assets } from "../../assets/assets";
+import Navbar from "../../components/Navbar";
+import OrderSummary from "../../components/OrderSummary";
+import { useAppContext } from "../../context/AppContext";
 
 const Cart = () => {
   const {

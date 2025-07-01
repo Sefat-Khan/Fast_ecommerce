@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useEffect } from "react";
-import { assets } from "../assets/assets";
-import { useAppContext } from "../context/AppContext";
+import { assets } from "../../assets/assets";
+import { useAppContext } from "../../context/AppContext";
 
 const OrderPlaced = () => {
   const { router } = useAppContext();
