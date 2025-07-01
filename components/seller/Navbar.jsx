@@ -1,5 +1,5 @@
-import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
+import { useAppContext } from "../../context/AppContext";
 
 const Navbar = () => {
   const { router } = useAppContext();
