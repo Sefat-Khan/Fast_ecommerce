@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { assets, orderDummyData } from "../../assets/assets";
-import Loading from "../../components/Loading";
-import Footer from "../../components/seller/Footer";
-import { useAppContext } from "../../context/AppContext";
+import { assets } from "../../../assets/assets";
+import Footer from "../../../components/Footer";
+import Loading from "../../../components/Loading";
+import { useAppContext } from "../../../context/AppContext";
 
 const Orders = () => {
   const { currency } = useAppContext();
