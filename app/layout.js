@@ -7,7 +7,7 @@ import "./globals.css";
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export const metadata = {
-  title: "QuickCart - GreatStack",
+  title: "FastCart",
   description: "E-Commerce with Next.js ",
 };
 
