@@ -77,7 +77,7 @@ const ProductList = () => {
                         {Array.isArray(product.images) &&
                         product.images.length > 0 ? (
                           <Image
-                            src={product.images[0]}
+                            src={product.images[1]}
                             alt="Product Image"
                             className="w-16"
                             width={1280}
