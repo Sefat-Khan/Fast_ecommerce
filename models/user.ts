@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema<IUser>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   imageUrl: { type: String },
-  cartItems: { type: Object, default: {} },
+  cartItems: { type: Map, of: mongoose.Schema.Types.Mixed, default: {} },
 });
 
 type UserModel = Model<IUser>;
