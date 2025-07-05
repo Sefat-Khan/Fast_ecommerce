@@ -1,10 +1,10 @@
 "use client";
 import axios from "axios";
-import { AppContext } from "context/AppContext";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
+import { AppContext } from "../../context/AppContext";
 
 const AddProduct = () => {
   const { getToken } = AppContext();
