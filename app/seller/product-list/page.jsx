@@ -44,6 +44,8 @@ const ProductList = () => {
     }
   }, [user]);
 
+  console.log(products);
+
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
       {loading ? (
