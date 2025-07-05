@@ -25,7 +25,7 @@ const AddProduct = () => {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("category", category);
-    formData.append("color", JSON.stringify(colors));
+    colors.forEach((color) => formData.append("color", color));
     formData.append("price", price);
     formData.append("offerPrice", offerPrice);
     files.forEach((file) => {

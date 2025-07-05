@@ -32,12 +32,11 @@ export async function POST(req) {
     const category = formData.get("category");
     const color = formData.getAll("color");
     const offerPrice = formData.get("offerPrice");
-    const files = formData.getAll("images");
-
-    if (!files || files === 0) {
+    const files = formData.getAll("images").filter((file) => file.size > 0);
+    if (!files || files.length === 0) {
       return NextResponse.json({
         success: false,
-        message: "No images provided",
+        message: "No valid images provided",
       });
     }
 
