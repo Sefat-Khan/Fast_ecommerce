@@ -24,8 +24,9 @@ const ProductList = () => {
         },
       });
 
+      console.log("Products:", data.products);
+
       if (data.success) {
-        console.log("Products:", data.products);
         setProducts(data.products);
         setLoading(false);
         toast.success("Products fetched successfully!");

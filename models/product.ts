@@ -6,9 +6,9 @@ interface IProduct extends Document {
   description: string;
   price: number;
   category: string;
-  color: [string];
+  color: string[];
   offerPrice: number;
-  images: [string];
+  images: string[];
   date: Date;
 }
 
