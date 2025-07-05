@@ -12,7 +12,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function Post(req) {
+export async function POST(req) {
   try {
     const { userId } = getAuth(req);
 
