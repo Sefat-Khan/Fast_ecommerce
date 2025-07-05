@@ -1,25 +1,47 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { assets, productsDummyData } from "../../../assets/assets";
 import Loading from "../../../components/Loading";
 import Footer from "../../../components/seller/Footer";
 import { useAppContext } from "../../../context/AppContext";
 
 const ProductList = () => {
-  const { router } = useAppContext();
+  const { router, getToken, user } = useAppContext();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchSellerProduct = async () => {
-    setProducts(productsDummyData);
-    setLoading(false);
+    try {
+      const token = getToken();
+
+      const data = await axios("/api/seller/products", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        setProducts(data.products);
+        setLoading(false);
+        toast.success("Products fetched successfully!");
+      } else {
+        setProducts(productsDummyData);
+        setLoading(false);
+      }
+    } catch (err) {
+      toast.error("Failed to fetch products. Please try again later.");
+    }
   };
 
   useEffect(() => {
-    fetchSellerProduct();
-  }, []);
+    if (user) {
+      fetchSellerProduct();
+    }
+  }, [user]);
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
