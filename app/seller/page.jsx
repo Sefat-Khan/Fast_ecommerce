@@ -1,9 +1,13 @@
 "use client";
+import axios from "axios";
+import { AppContext } from "context/AppContext";
 import Image from "next/image";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
 
 const AddProduct = () => {
+  const { getToken } = AppContext();
   const [files, setFiles] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -15,6 +19,47 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("category", category);
+    formData.append("color", JSON.stringify(colors));
+    formData.append("price", price);
+    formData.append("offerPrice", offerPrice);
+    files.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    try {
+      const token = await getToken();
+
+      const data = await axios.post("/api/product/add", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (data.success) {
+        toast.success("Product added successfully!");
+        setFiles([]);
+        setName("");
+        setDescription("");
+        setCategory("Earphone");
+        setPrice("");
+        setColors([]);
+        setCurrentColor("#000000");
+        setOfferPrice("");
+      } else {
+        toast.error(data.message || "Failed to add product");
+      }
+    } catch (err) {
+      toast.error(
+        "An error occurred while adding the product. Please try again."
+      );
+      console.error("Error adding product:", err);
+    }
   };
 
   return (
