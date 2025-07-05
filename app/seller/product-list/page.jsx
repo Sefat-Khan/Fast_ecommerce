@@ -13,6 +13,7 @@ const ProductList = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   const fetchSellerProduct = async () => {
     try {
@@ -70,13 +71,20 @@ const ProductList = () => {
                   <tr key={index} className="border-t border-gray-500/20">
                     <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                       <div className="bg-gray-500/10 rounded p-2">
-                        <Image
-                          src={product.image[0]}
-                          alt="product Image"
-                          className="w-16"
-                          width={1280}
-                          height={720}
-                        />
+                        {imageError || !product.image?.[0] ? (
+                          <div className="w-16 h-16 flex items-center justify-center bg-gray-200">
+                            <span>No Image</span>
+                          </div>
+                        ) : (
+                          <Image
+                            src={product.image[0]}
+                            alt="product Image"
+                            className="w-16"
+                            width={1280}
+                            height={720}
+                            onError={() => setImageError(true)}
+                          />
+                        )}
                       </div>
                       <span className="truncate w-full">{product.name}</span>
                     </td>
