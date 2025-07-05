@@ -16,25 +16,23 @@ const ProductList = () => {
 
   const fetchSellerProduct = async () => {
     try {
-      const token = getToken();
-
+      const token = await getToken(); // Added await here
       const { data } = await axios.get("/api/seller/products", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("Products:", data.products);
-
-      if (data.success) {
-        setProducts(data.products);
-        setLoading(false);
-        toast.success("Products fetched successfully!");
-      } else {
-        toast.error(data.message || "Failed to fetch products.");
+      if (data?.success) {
+        // Ensure all products have proper images array
+        const validatedProducts = data.products.map((product) => ({
+          ...product,
+          images: Array.isArray(product.images) ? product.images : [],
+        }));
+        setProducts(validatedProducts);
       }
+      setLoading(false);
     } catch (err) {
-      toast.error("Failed to fetch products. Please try again later.");
+      toast.error("Failed to fetch products");
+      setLoading(false);
     }
   };
 
