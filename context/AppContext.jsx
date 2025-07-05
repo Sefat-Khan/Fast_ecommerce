@@ -4,7 +4,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { productsDummyData } from "../assets/assets";
 
 export const AppContext = createContext();
 
@@ -32,8 +31,6 @@ export const AppContextProvider = (props) => {
       if (data.success) {
         setProducts(data.products);
         toast.success("Products fetched successfully!");
-      } else {
-        setProducts(productsDummyData);
       }
     } catch (err) {
       toast.error(
@@ -75,6 +72,7 @@ export const AppContextProvider = (props) => {
       cartData[itemId] = 1;
     }
     setCartItems(cartData);
+    toast.success("Item added to cart successfully!");
   };
 
   const updateCartQuantity = async (itemId, quantity) => {

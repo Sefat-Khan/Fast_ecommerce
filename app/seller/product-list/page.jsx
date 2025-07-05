@@ -3,7 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { assets, productsDummyData } from "../../../assets/assets";
+import { assets } from "../../../assets/assets";
 import Loading from "../../../components/Loading";
 import Footer from "../../../components/seller/Footer";
 import { useAppContext } from "../../../context/AppContext";
@@ -29,8 +29,7 @@ const ProductList = () => {
         setLoading(false);
         toast.success("Products fetched successfully!");
       } else {
-        setProducts(productsDummyData);
-        setLoading(false);
+        toast.error(data.message || "Failed to fetch products.");
       }
     } catch (err) {
       toast.error("Failed to fetch products. Please try again later.");
