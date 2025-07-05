@@ -42,7 +42,7 @@ const AddProduct = () => {
       });
 
       if (data.success) {
-        toast.success("Product added successfully!");
+        toast.success(data.message);
         setFiles([]);
         setName("");
         setDescription("");
@@ -52,7 +52,7 @@ const AddProduct = () => {
         setCurrentColor("#000000");
         setOfferPrice("");
       } else {
-        toast.error(data.message || "Failed to add product");
+        toast.error(data.message);
       }
     } catch (err) {
       toast.error(
