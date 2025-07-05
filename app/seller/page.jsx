@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
-import { AppContext } from "../../context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 
 const AddProduct = () => {
-  const { getToken } = AppContext();
+  const { getToken } = useAppContext();
   const [files, setFiles] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
