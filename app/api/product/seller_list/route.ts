@@ -4,7 +4,7 @@ import { connectDB } from "../../../../config/db";
 import authSeller from "../../../../lib/authSeller";
 import Product from "../../../../models/product";
 
-export default async function GET(req) {
+export async function GET(req) {
   try {
     const { userId } = getAuth(req);
 

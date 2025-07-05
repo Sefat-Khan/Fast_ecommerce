@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "../../../../config/db";
 import Product from "../../../../models/product";
 
-export default async function GET() {
+export async function GET() {
   try {
     await connectDB();
     const products = await Product.find();
