@@ -16,23 +16,25 @@ const ProductList = () => {
 
   const fetchSellerProduct = async () => {
     try {
-      const token = await getToken(); // Added await here
+      const token = getToken();
+
       const { data } = await axios.get("/api/seller/products", {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      if (data?.success) {
-        // Ensure all products have proper images array
-        const validatedProducts = data.products.map((product) => ({
-          ...product,
-          images: Array.isArray(product.images) ? product.images : [],
-        }));
-        setProducts(validatedProducts);
+      console.log("Products:", data.products);
+
+      if (data.success) {
+        setProducts(data.products);
+        setLoading(false);
+        toast.success("Products fetched successfully!");
+      } else {
+        toast.error(data.message || "Failed to fetch products.");
       }
-      setLoading(false);
     } catch (err) {
-      toast.error("Failed to fetch products");
-      setLoading(false);
+      toast.error("Failed to fetch products. Please try again later.");
     }
   };
 
@@ -72,19 +74,13 @@ const ProductList = () => {
                   <tr key={index} className="border-t border-gray-500/20">
                     <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                       <div className="bg-gray-500/10 rounded p-2">
-                        {product.images?.[0] ? (
-                          <Image
-                            src={product.images[0]}
-                            alt="Product Image"
-                            className="w-16"
-                            width={1280}
-                            height={720}
-                          />
-                        ) : (
-                          <div className="w-16 h-16 bg-gray-300 flex items-center justify-center text-xs text-gray-600">
-                            No Image
-                          </div>
-                        )}
+                        <Image
+                          src={product.images[0]}
+                          alt="product Image"
+                          className="w-16"
+                          width={1280}
+                          height={720}
+                        />
                       </div>
                       <span className="truncate w-full">{product.name}</span>
                     </td>
