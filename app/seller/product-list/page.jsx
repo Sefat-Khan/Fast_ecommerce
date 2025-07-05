@@ -74,13 +74,19 @@ const ProductList = () => {
                   <tr key={index} className="border-t border-gray-500/20">
                     <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                       <div className="bg-gray-500/10 rounded p-2">
-                        <Image
-                          src={product.images[0]}
-                          alt="product Image"
-                          className="w-16"
-                          width={1280}
-                          height={720}
-                        />
+                        {product.images?.length > 0 ? (
+                          <Image
+                            src={product.images[0]}
+                            alt="product Image"
+                            className="w-16"
+                            width={1280}
+                            height={720}
+                          />
+                        ) : (
+                          <div className="w-16 h-16 bg-gray-300 flex items-center justify-center text-xs text-gray-600">
+                            No Image
+                          </div>
+                        )}
                       </div>
                       <span className="truncate w-full">{product.name}</span>
                     </td>
