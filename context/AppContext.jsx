@@ -26,7 +26,21 @@ export const AppContextProvider = (props) => {
   const [isActive, setIsActive] = useState(false);
 
   const fetchProductData = async () => {
-    setProducts(productsDummyData);
+    try {
+      const { data } = await axios.get("/api/product/list");
+
+      if (data.success) {
+        setProducts(data.products);
+        toast.success("Products fetched successfully!");
+      } else {
+        setProducts(productsDummyData);
+      }
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message ||
+          "Failed to fetch products. Please try again later."
+      );
+    }
   };
 
   const fetchUserData = async () => {

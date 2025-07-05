@@ -18,7 +18,7 @@ const ProductList = () => {
     try {
       const token = getToken();
 
-      const data = await axios("/api/seller/products", {
+      const { data } = await axios.get("/api/seller/products", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
