@@ -68,7 +68,7 @@ export async function POST(req) {
 
     const results = await Promise.all(uploadPromises);
 
-    const images = results.map((res) => res.secure_url);
+    const image = results.map((res) => res.secure_url);
 
     await connectDB();
     const newProduct = await Product.create({
@@ -79,7 +79,7 @@ export async function POST(req) {
       category,
       color: Array.isArray(color) ? color : [color],
       offerPrice: offerPrice ? Number(offerPrice) : undefined,
-      images,
+      image,
       date: new Date(),
     });
 

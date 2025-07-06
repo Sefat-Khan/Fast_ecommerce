@@ -8,7 +8,7 @@ interface IProduct extends Document {
   category: string;
   color: string[];
   offerPrice?: number;
-  images: string[];
+  image: string[];
   date: Date;
 }
 
@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema<IProduct>({
   category: { type: String, required: true },
   color: { type: [String], required: true },
   offerPrice: { type: Number },
-  images: { type: [String], required: true },
+  image: { type: [String], required: true },
   date: { type: Date },
 });
 

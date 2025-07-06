@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { assets, productsDummyData } from "../../../assets/assets";
+import { assets } from "../../../assets/assets";
 import Loading from "../../../components/Loading";
 import Footer from "../../../components/seller/Footer";
 import { useAppContext } from "../../../context/AppContext";
@@ -18,23 +18,19 @@ const ProductList = () => {
     try {
       const token = getToken();
 
-      const { data } = await axios.get("/api/seller/products", {
+      const { data } = await axios.get("/api/product/seller_list", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log("Products:", data.products);
-
-      setProducts(productsDummyData);
-
-      // if (data.success) {
-      //   setProducts(data.products);
-      //   setLoading(false);
-      //   toast.success("Products fetched successfully!");
-      // } else {
-      //   toast.error(data.message || "Failed to fetch products.");
-      // }
+      if (data.success) {
+        setProducts(data.products);
+        setLoading(false);
+        toast.success("Products fetched successfully!");
+      } else {
+        toast.error(data.message || "Failed to fetch products.");
+      }
     } catch (err) {
       toast.error("Failed to fetch products. Please try again later.");
     }
