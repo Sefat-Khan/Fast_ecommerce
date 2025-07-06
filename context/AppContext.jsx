@@ -1,5 +1,6 @@
 "use client";
 import { useAuth, useUser } from "@clerk/nextjs";
+import { productsDummyData } from "assets/assets";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
