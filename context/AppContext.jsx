@@ -4,7 +4,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { productsDummyData } from "../assets/assets";
 
 export const AppContext = createContext();
 
@@ -26,20 +25,19 @@ export const AppContextProvider = (props) => {
   const [isActive, setIsActive] = useState(false);
 
   const fetchProductData = async () => {
-    // try {
-    //   const { data } = await axios.get("/api/product/list");
+    try {
+      const { data } = await axios.get("/api/product/list");
 
-    //   if (data.success) {
-    //     setProducts(data.products);
-    //     toast.success("Products fetched successfully!");
-    //   }
-    // } catch (err) {
-    //   toast.error(
-    //     err.response?.data?.message ||
-    //       "Failed to fetch products. Please try again later."
-    //   );
-    // }
-    setProducts(productsDummyData);
+      if (data.success) {
+        setProducts(data.products);
+        toast.success("Products fetched successfully!");
+      }
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message ||
+          "Failed to fetch products. Please try again later."
+      );
+    }
   };
 
   const fetchUserData = async () => {

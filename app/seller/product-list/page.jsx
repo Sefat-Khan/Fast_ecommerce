@@ -13,30 +13,29 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchSellerProduct = async () => {
-    // try {
-    //   const token = getToken();
+    try {
+      const token = getToken();
 
-    //   const { data } = await axios.get("/api/seller/products", {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
+      const { data } = await axios.get("/api/seller/products", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    //   console.log("Products:", data.products);
+      setProducts(productsDummyData);
 
-    //   if (data.success) {
-    //     setProducts(data.products);
-    //     setLoading(false);
-    //     toast.success("Products fetched successfully!");
-    //   } else {
-    //     toast.error(data.message || "Failed to fetch products.");
-    //   }
-    // } catch (err) {
-    //   toast.error("Failed to fetch products. Please try again later.");
-    // }
+      // console.log("Products:", data.products);
 
-    setProducts(productsDummyData);
-    setLoading(false);
+      // if (data.success) {
+      //   setProducts(data.products);
+      //   setLoading(false);
+      //   toast.success("Products fetched successfully!");
+      // } else {
+      //   toast.error(data.message || "Failed to fetch products.");
+      // }
+    } catch (err) {
+      toast.error("Failed to fetch products. Please try again later.");
+    }
   };
 
   useEffect(() => {
