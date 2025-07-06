@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { assets } from "../../../assets/assets";
 import Loading from "../../../components/Loading";
 import Footer from "../../../components/seller/Footer";
@@ -11,8 +12,6 @@ const ProductList = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  console.log(products.images);
 
   const fetchSellerProduct = async () => {
     try {
@@ -41,8 +40,6 @@ const ProductList = () => {
       fetchSellerProduct();
     }
   }, [user]);
-
-  console.log(products);
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
