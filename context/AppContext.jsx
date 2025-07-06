@@ -18,8 +18,6 @@ export const AppContextProvider = (props) => {
   const { user } = useUser();
   const { getToken } = useAuth();
 
-  console.log(user);
-
   const [products, setProducts] = useState([]);
   const [userData, setUserData] = useState(null);
   const [isSeller, setIsSeller] = useState(true);
