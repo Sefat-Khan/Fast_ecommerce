@@ -1,5 +1,5 @@
 import { getAuth } from "@clerk/nextjs/server";
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 import { NextResponse } from "next/server";
 import { connectDB } from "../../../../config/db";
 import authSeller from "../../../../lib/authSeller";
@@ -32,7 +32,13 @@ export async function POST(req) {
     const category = formData.get("category");
     const color = formData.getAll("color");
     const offerPrice = formData.get("offerPrice");
-    const files = formData.getAll("images").filter((file) => file.size > 0);
+    const files = formData.getAll("images").filter((file) => {
+      if (typeof file === "object" && "size" in file) {
+        return file.size > 0;
+      }
+      return false;
+    });
+
     if (!files || files.length === 0) {
       return NextResponse.json({
         success: false,
@@ -40,28 +46,29 @@ export async function POST(req) {
       });
     }
 
-    const result = await Promise.all(
-      files.map(async (file) => {
-        const arrayBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
+    // Upload images to Cloudinary
+    const uploadPromises = files.map(async (file) => {
+      const arrayBuffer = await (file as File).arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
 
-        return new Promise((resolve, reject) => {
-          const stream = cloudinary.uploader.upload_stream(
-            { resource_type: "auto" },
-            (error, result) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(result);
-              }
+      return new Promise<UploadApiResponse>((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: "auto" },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result!);
             }
-          );
-          stream.end(buffer);
-        });
-      })
-    );
+          }
+        );
+        stream.end(buffer);
+      });
+    });
 
-    const images = result.map((res) => res.secure_url);
+    const results = await Promise.all(uploadPromises);
+
+    const images = results.map((res) => res.secure_url);
 
     await connectDB();
     const newProduct = await Product.create({
