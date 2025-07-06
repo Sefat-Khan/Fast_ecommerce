@@ -13,6 +13,7 @@ const ProductList = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState(null);
 
   const fetchSellerProduct = async () => {
     try {
@@ -33,6 +34,40 @@ const ProductList = () => {
       }
     } catch (err) {
       toast.error("Failed to fetch products. Please try again later.");
+    }
+  };
+
+  const handleEdit = (productId) => {
+    router.push(`/seller/products/edit/${productId}`);
+  };
+
+  const handleDelete = async (productId) => {
+    try {
+      if (!window.confirm("Are you sure you want to delete this product?")) {
+        return;
+      }
+
+      setDeletingId(productId);
+      const token = await getToken();
+
+      const { data } = await axios.delete("/api/product/seller_list", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { productId }, // Axios DELETE with body needs to be sent this way
+      });
+
+      if (data.success) {
+        toast.success("Product deleted successfully");
+        // Refresh the product list
+        await fetchSellerProduct();
+      } else {
+        toast.error(data.message || "Failed to delete product.");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to delete product.");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -97,7 +132,7 @@ const ProductList = () => {
                         />
                       </button>
                       <button
-                        onClick={() => router.push(`/product/${product._id}`)}
+                        onClick={() => handleEdit(product._id)}
                         className="flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-orange-600 text-white rounded-md"
                       >
                         <span className="hidden md:block">Edit</span>
@@ -110,14 +145,23 @@ const ProductList = () => {
                         />
                       </button>
                       <button
-                        onClick={() => router.push(`/product/${product._id}`)}
-                        className="flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-orange-600 text-white rounded-md"
+                        onClick={() => handleDelete(product._id)}
+                        disabled={deletingId === product._id}
+                        className={`flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors ${
+                          deletingId === product._id
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
+                        }`}
                       >
-                        <span className="hidden md:block">Delete</span>
+                        <span className="hidden md:block">
+                          {deletingId === product._id
+                            ? "Deleting..."
+                            : "Delete"}
+                        </span>
                         <Image
                           className="h-3.5"
                           src="/delete.svg"
-                          alt="redirect_icon"
+                          alt="delete_icon"
                           width={20}
                           height={200}
                         />
