@@ -76,7 +76,7 @@ const ProductList = () => {
                     <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                       <div className="bg-gray-500/10 rounded p-2">
                         <Image
-                          src={product.images[0]}
+                          src={product.image[0]}
                           alt="product Image"
                           className="w-16"
                           width={1280}
