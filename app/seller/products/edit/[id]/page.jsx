@@ -10,7 +10,7 @@ import { useAppContext } from "../../../../../context/AppContext";
 const EditProduct = ({ params }) => {
   const { getToken } = useAppContext();
   const router = useRouter();
-  const { id } = router.params;
+  const { id } = params;
 
   const [files, setFiles] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
