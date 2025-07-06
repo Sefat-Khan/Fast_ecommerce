@@ -26,7 +26,7 @@ const ProductList = () => {
       if (data.success) {
         setProducts(data.products);
         setLoading(false);
-        toast.success("Products fetched successfully!");
+        toast.success("Seller_list fetched successfully!");
       } else {
         toast.error(data.message || "Failed to fetch products.");
       }
