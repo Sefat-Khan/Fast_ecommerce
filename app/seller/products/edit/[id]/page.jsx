@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { assets } from "../../assets/assets";
-import { useAppContext } from "../../context/AppContext";
+import { assets } from "../../../../../assets/assets";
+import { useAppContext } from "../../../../../context/AppContext";
 
 const EditProduct = ({ params }) => {
   const { getToken } = useAppContext();
