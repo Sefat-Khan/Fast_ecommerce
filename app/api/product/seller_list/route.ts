@@ -18,7 +18,7 @@ export async function GET(req) {
     }
 
     await connectDB();
-    const products = await Product.find({ seller: userId });
+    const products = await Product.find();
 
     return NextResponse.json({
       success: true,
