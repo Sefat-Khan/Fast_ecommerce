@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { assets, productsDummyData } from "../../../assets/assets";
+import { assets } from "../../../assets/assets";
 import Loading from "../../../components/Loading";
 import Footer from "../../../components/seller/Footer";
 import { useAppContext } from "../../../context/AppContext";
@@ -22,17 +22,15 @@ const ProductList = () => {
         },
       });
 
-      setProducts(productsDummyData);
+      console.log("Products:", data.products);
 
-      // console.log("Products:", data.products);
-
-      // if (data.success) {
-      //   setProducts(data.products);
-      //   setLoading(false);
-      //   toast.success("Products fetched successfully!");
-      // } else {
-      //   toast.error(data.message || "Failed to fetch products.");
-      // }
+      if (data.success) {
+        setProducts(data.products);
+        setLoading(false);
+        toast.success("Products fetched successfully!");
+      } else {
+        toast.error(data.message || "Failed to fetch products.");
+      }
     } catch (err) {
       toast.error("Failed to fetch products. Please try again later.");
     }
@@ -75,7 +73,7 @@ const ProductList = () => {
                     <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                       <div className="bg-gray-500/10 rounded p-2">
                         <Image
-                          src={product.image[0]}
+                          src={product.images[0]}
                           alt="product Image"
                           className="w-16"
                           width={1280}
