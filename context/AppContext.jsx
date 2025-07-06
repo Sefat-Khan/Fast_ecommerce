@@ -1,10 +1,10 @@
 "use client";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { productsDummyData } from "assets/assets";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { productsDummyData } from "../assets/assets";
 
 export const AppContext = createContext();
 
