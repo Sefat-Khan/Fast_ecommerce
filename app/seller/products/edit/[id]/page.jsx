@@ -251,4 +251,4 @@ const EditProduct = ({ params }) => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
