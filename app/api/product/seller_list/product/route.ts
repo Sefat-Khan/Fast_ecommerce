@@ -49,6 +49,8 @@ export async function PUT(req) {
     const formData = await req.json();
     const productId = formData.id;
 
+    console.log(formData);
+
     await connectDB();
     const productData = await Product.findOne({
       _id: productId,
