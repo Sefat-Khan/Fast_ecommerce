@@ -46,8 +46,8 @@ export async function GET(req) {
 export async function PUT(req) {
   try {
     const { userId } = getAuth(req);
-    const { productId, ...data } = await req.json();
-    console.log(productId, data);
+    const formData = await req.formData();
+    const productId = formData.get("id");
 
     await connectDB();
     const productData = await Product.findOne({
@@ -62,9 +62,13 @@ export async function PUT(req) {
       });
     }
 
-    const updatedProduct = await Product.findByIdAndUpdate(productId, data, {
-      new: true,
-    });
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      formData,
+      {
+        new: true,
+      }
+    );
 
     return NextResponse.json({
       success: true,
