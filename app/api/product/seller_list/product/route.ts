@@ -46,7 +46,7 @@ export async function GET(req) {
 export async function PUT(req) {
   try {
     const { userId } = getAuth(req);
-    const formData = await req.formData();
+    const formData = await req.json();
     const productId = formData.get("id");
 
     await connectDB();
