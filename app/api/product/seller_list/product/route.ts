@@ -47,7 +47,7 @@ export async function PUT(req) {
   try {
     const { userId } = getAuth(req);
     const formData = await req.json();
-    const productId = formData.get("id");
+    const productId = formData.id;
 
     await connectDB();
     const productData = await Product.findOne({
