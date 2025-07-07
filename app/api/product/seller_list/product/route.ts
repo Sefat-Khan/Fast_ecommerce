@@ -47,6 +47,7 @@ export async function PUT(req) {
   try {
     const { userId } = getAuth(req);
     const { productId, ...data } = await req.json();
+    console.log(productId, data);
 
     await connectDB();
     const productData = await Product.findOne({
