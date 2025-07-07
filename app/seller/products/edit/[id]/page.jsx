@@ -79,10 +79,11 @@ const EditProduct = ({ params }) => {
 
       const { data } = await axios.put(
         "/api/product/seller_list/product",
-        { id, formData },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );

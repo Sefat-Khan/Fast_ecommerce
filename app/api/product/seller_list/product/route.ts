@@ -46,31 +46,54 @@ export async function GET(req) {
 export async function PUT(req) {
   try {
     const { userId } = getAuth(req);
-    const formData = await req.json();
-    const productId = formData.id;
+    const isSeller = authSeller(userId);
+    if (!isSeller) {
+      return NextResponse.json({
+        success: false,
+        message: "You are not authorized to update products",
+      });
+    }
 
-    console.log(formData);
+    const formData = await req.formData();
+
+    const productId = formData.get("id");
+    const name = formData.get("name");
+    const description = formData.get("description");
+    const category = formData.get("category");
+    const price = formData.get("price");
+    const offerPrice = formData.get("offerPrice");
+    const colors = formData.getAll("color");
+
+    const images = formData.getAll("images");
 
     await connectDB();
-    const productData = await Product.findOne({
-      _id: productId,
-      userId: userId,
-    });
 
-    if (!productData) {
+    const updateData = {
+      name,
+      description,
+      category,
+      price,
+      offerPrice,
+      colors,
+      images: images.length > 0 ? images : undefined,
+    };
+
+    await connectDB();
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      updateData,
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedProduct) {
       return NextResponse.json({
         success: false,
         message: "Product not found!",
       });
     }
-
-    const updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      formData,
-      {
-        new: true,
-      }
-    );
 
     return NextResponse.json({
       success: true,
