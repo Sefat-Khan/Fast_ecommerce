@@ -23,6 +23,13 @@ export async function GET(req) {
     await connectDB();
     const product = await Product.findById(productId);
 
+    if (!product) {
+      return NextResponse.json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
     return NextResponse.json({
       success: true,
       product,

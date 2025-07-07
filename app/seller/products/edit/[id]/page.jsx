@@ -28,7 +28,7 @@ const EditProduct = ({ params }) => {
       try {
         const token = await getToken();
         const { data } = await axios.get(
-          `/api/product/seller_list/product/${id}`,
+          `/api/product/seller_list/product?id=${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ const EditProduct = ({ params }) => {
 
       const { data } = await axios.put(
         "/api/product/seller_list/product",
-        { data: { id, formData } },
+        { id, formData },
         {
           headers: {
             Authorization: `Bearer ${token}`,
