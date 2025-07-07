@@ -64,6 +64,7 @@ const EditProduct = ({ params }) => {
 
     const formData = new FormData();
 
+    formData.append("id", id);
     formData.append("name", name);
     formData.append("description", description);
     formData.append("category", category);

@@ -57,6 +57,27 @@ export async function PUT(req) {
     const formData = await req.formData();
 
     const productId = formData.get("id");
+
+    if (!productId) {
+      return NextResponse.json({
+        success: false,
+        message: "Product ID is required",
+      });
+    }
+    console.log("Updating product ID:", productId);
+
+    const existingProduct = await Product.findOne({
+      _id: productId,
+      userId: userId,
+    });
+
+    if (!existingProduct) {
+      return NextResponse.json({
+        success: false,
+        message: "Product not found or you don't have permission to update it",
+      });
+    }
+
     const name = formData.get("name");
     const description = formData.get("description");
     const category = formData.get("category");
