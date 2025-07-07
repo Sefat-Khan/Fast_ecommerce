@@ -90,9 +90,23 @@ const EditProduct = ({ params }) => {
       toast.error(
         "An error occurred while adding the product. Please try again."
       );
-      console.error("Error adding product:", err);
+      console.error("Error updating product:", err);
     }
   };
+
+  const handleRemoveImage = (index) => {
+    const updatedImages = [...existingImages];
+    updatedImages.splice(index, 1);
+    setExistingImages(updatedImages);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex-1 min-h-screen flex items-center justify-center">
+        <p>Loading product data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
@@ -100,20 +114,42 @@ const EditProduct = ({ params }) => {
         <div>
           <p className="text-base font-medium">Product Image</p>
           <div className="flex flex-wrap items-center gap-3 mt-2">
-            {[...Array(4)].map((_, index) => (
-              <label key={index} htmlFor={`image${index}`}>
+            {/* Display existing images */}
+            {existingImages.map((image, index) => (
+              <div key={`existing-${index}`} className="relative">
+                <Image
+                  className="max-w-24"
+                  src={image}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveImage(index)}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+
+            {/* Display upload areas for new images */}
+            {[...Array(4 - existingImages.length)].map((_, index) => (
+              <label key={`new-${index}`} htmlFor={`image${index}`}>
                 <input
                   onChange={(e) => {
-                    const updatedFiles = [...files];
-                    updatedFiles[index] = e.target.files[0];
-                    setFiles(updatedFiles);
+                    if (e.target.files[0]) {
+                      const updatedFiles = [...files];
+                      updatedFiles[index] = e.target.files[0];
+                      setFiles(updatedFiles);
+                    }
                   }}
                   type="file"
                   id={`image${index}`}
                   hidden
                 />
                 <Image
-                  key={index}
                   className="max-w-24 cursor-pointer"
                   src={
                     files[index]
