@@ -27,11 +27,14 @@ const EditProduct = ({ params }) => {
     const fetchProduct = async () => {
       try {
         const token = await getToken();
-        const { data } = await axios.get(`/api/product/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const { data } = await axios.get(
+          `/api/product/seller_list/product/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (data.success && data.product) {
           const product = data.product;
@@ -74,11 +77,15 @@ const EditProduct = ({ params }) => {
     try {
       const token = await getToken();
 
-      const { data } = await axios.put("/api/product/seller_list", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axios.put(
+        "/api/product/seller_list/product",
+        { data: { id, formData } },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (data.success) {
         toast.success(data.message);

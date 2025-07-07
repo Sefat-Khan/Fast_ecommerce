@@ -50,7 +50,7 @@ const ProductList = () => {
       setDeletingId(productId);
       const token = await getToken();
 
-      const { data } = await axios.delete("/api/product/seller_list", {
+      const { data } = await axios.delete("/api/product/seller_list/product", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
