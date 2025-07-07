@@ -52,7 +52,7 @@ export async function PUT(req) {
     await connectDB();
     const productData = await Product.findOne({
       _id: productId,
-      seller: userId,
+      userId: userId,
     });
 
     if (!productData) {
