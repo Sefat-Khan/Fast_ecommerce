@@ -50,12 +50,14 @@ const ProductList = () => {
       setDeletingId(productId);
       const token = await getToken();
 
-      const { data } = await axios.delete("/api/product/seller_list/product", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        productId, // Axios DELETE with body needs to be sent this way
-      });
+      const { data } = await axios.delete(
+        `/api/product/seller_list/product?id=${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (data.success) {
         toast.success("Product deleted successfully");

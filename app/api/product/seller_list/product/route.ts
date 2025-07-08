@@ -132,7 +132,15 @@ export async function PUT(req) {
 export async function DELETE(req) {
   try {
     const { userId } = getAuth(req);
-    const { productId } = await req.productId;
+    const { searchParams } = new URL(req.url);
+    const productId = searchParams.get("id");
+
+    if (!productId) {
+      return NextResponse.json({
+        success: false,
+        message: "Product ID is required",
+      });
+    }
 
     await connectDB();
 
