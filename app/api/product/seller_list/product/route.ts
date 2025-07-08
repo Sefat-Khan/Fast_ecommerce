@@ -132,7 +132,7 @@ export async function PUT(req) {
 export async function DELETE(req) {
   try {
     const { userId } = getAuth(req);
-    const { productId } = await req.json();
+    const { productId } = await req.productId;
 
     await connectDB();
 

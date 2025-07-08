@@ -54,7 +54,7 @@ const ProductList = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: { productId }, // Axios DELETE with body needs to be sent this way
+        productId, // Axios DELETE with body needs to be sent this way
       });
 
       if (data.success) {
