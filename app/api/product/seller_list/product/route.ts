@@ -145,7 +145,7 @@ export async function DELETE(req) {
     await connectDB();
 
     // Verify the product belongs to this seller before deleting
-    const product = await Product.findOne({ _id: productId, seller: userId });
+    const product = await Product.findOne({ _id: productId, userId: userId });
 
     if (!product) {
       return NextResponse.json({
