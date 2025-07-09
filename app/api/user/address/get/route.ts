@@ -8,7 +8,7 @@ export async function GET(req) {
     const { userId } = getAuth(req);
 
     await connectDB();
-    const addressData = await Address.findById(userId);
+    const addressData = await Address.find({ userId });
 
     if (addressData) {
       return NextResponse.json({
