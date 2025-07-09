@@ -4,8 +4,10 @@ import { useState } from "react";
 import { assets } from "../../assets/assets";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import { AppContext } from "../../context/AppContext";
 
 const AddAddress = () => {
+  const { getToken } = AppContext();
   const [address, setAddress] = useState({
     fullName: "",
     phoneNumber: "",
@@ -17,6 +19,36 @@ const AddAddress = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    try {
+      const token = await getToken();
+      const data = await fetch(
+        "/api/user/address/get",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        { address }
+      );
+
+      if (data.success) {
+        alert(data.message);
+        setAddress({
+          fullName: "",
+          phoneNumber: "",
+          pincode: "",
+          area: "",
+          city: "",
+          state: "",
+        });
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error adding address:", error);
+      alert("Failed to add address. Please try again.");
+    }
   };
 
   return (
