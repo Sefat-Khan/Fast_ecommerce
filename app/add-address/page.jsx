@@ -25,12 +25,12 @@ const AddAddress = () => {
       const token = await getToken();
       const data = await axios.post(
         "/api/user/address/add",
+        { address },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        { address }
+        }
       );
 
       if (data.success) {
