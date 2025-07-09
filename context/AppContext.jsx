@@ -73,6 +73,25 @@ export const AppContextProvider = (props) => {
     }
     setCartItems(cartData);
     toast.success("Item added to cart successfully!");
+
+    if (user) {
+      try {
+        const token = await getToken();
+        await axios.post(
+          "/api/cart/update",
+          { cartData },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        toast.success("Item added successfully!");
+      } catch (err) {
+        toast.error(
+          err.response?.data?.message ||
+            "Failed to add item to cart. Please try again later."
+        );
+      }
+    }
   };
 
   const updateCartQuantity = async (itemId, quantity) => {
@@ -83,6 +102,25 @@ export const AppContextProvider = (props) => {
       cartData[itemId] = quantity;
     }
     setCartItems(cartData);
+
+    if (user) {
+      try {
+        const token = await getToken();
+        await axios.post(
+          "/api/cart/update",
+          { cartData },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        toast.success("Cart updated successfully!");
+      } catch (err) {
+        toast.error(
+          err.response?.data?.message ||
+            "Failed to update cart. Please try again later."
+        );
+      }
+    }
   };
 
   const getCartCount = () => {
