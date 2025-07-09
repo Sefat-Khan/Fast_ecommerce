@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { assets } from "../../assets/assets";
@@ -22,7 +23,7 @@ const AddAddress = () => {
 
     try {
       const token = await getToken();
-      const data = await fetch(
+      const data = await axios.post(
         "/api/user/address/get",
         {
           headers: {
