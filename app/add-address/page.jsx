@@ -5,10 +5,10 @@ import { useState } from "react";
 import { assets } from "../../assets/assets";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import { AppContext } from "../../context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 
 const AddAddress = () => {
-  const { getToken } = AppContext();
+  const { getToken } = useAppContext();
   const [address, setAddress] = useState({
     fullName: "",
     phoneNumber: "",
