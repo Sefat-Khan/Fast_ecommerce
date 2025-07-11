@@ -23,6 +23,6 @@ const addressSchema = new mongoose.Schema<IAddress>({
 type AddressModel = Model<IAddress>;
 
 const Address: AddressModel =
-  mongoose.models.User || mongoose.model<IAddress>("User", addressSchema);
+  mongoose.models.Address || mongoose.model<IAddress>("Address", addressSchema);
 
 export default Address;
