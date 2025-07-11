@@ -11,7 +11,7 @@ export async function POST(req) {
 
     if (address) {
       await connectDB();
-      const newAddress = await Address.create(...address, userId);
+      const newAddress = await Address.create({ ...address, userId });
 
       return NextResponse.json({
         success: true,
