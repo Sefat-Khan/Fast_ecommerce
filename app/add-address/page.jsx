@@ -12,7 +12,7 @@ const AddAddress = () => {
   const [address, setAddress] = useState({
     fullName: "",
     phoneNumber: "",
-    pincode: "",
+    pinCode: "",
     area: "",
     city: "",
     state: "",
@@ -38,7 +38,7 @@ const AddAddress = () => {
         setAddress({
           fullName: "",
           phoneNumber: "",
-          pincode: "",
+          pinCode: "",
           area: "",
           city: "",
           state: "",
@@ -85,7 +85,7 @@ const AddAddress = () => {
               type="text"
               placeholder="Pin code"
               onChange={(e) =>
-                setAddress({ ...address, pincode: e.target.value })
+                setAddress({ ...address, pinCode: e.target.value })
               }
               value={address.pincode}
             />
