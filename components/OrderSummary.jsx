@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
-import { addressDummyData } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 
 const OrderSummary = () => {
-  const { currency, router, getCartCount, getCartAmount } = useAppContext();
+  const { currency, router, getCartCount, getCartAmount, getToken } =
+    useAppContext();
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [userAddresses, setUserAddresses] = useState([]);
 
   const fetchUserAddresses = async () => {
-    setUserAddresses(addressDummyData);
+    try {
+      const token = await getToken();
+      const data = await fetch("/api/user/address/get", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (data.success) {
+        setUserAddresses(data.addresses);
+      }
+    } catch (err) {
+      console.error("Error fetching user addresses:", err);
+    }
   };
 
   const handleAddressSelect = (address) => {
