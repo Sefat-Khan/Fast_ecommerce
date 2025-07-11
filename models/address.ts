@@ -4,7 +4,7 @@ interface IAddress extends Document {
   userId: string;
   fullName: string;
   phoneNumber: string;
-  pinCode: number;
+  pinCode: string;
   area: string;
   city: string;
   state: string;
@@ -14,7 +14,7 @@ const addressSchema = new mongoose.Schema<IAddress>({
   userId: { type: String, required: true },
   fullName: { type: String, required: true },
   phoneNumber: { type: String, required: true },
-  pinCode: { type: Number, required: true },
+  pinCode: { type: String, required: true },
   area: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },
