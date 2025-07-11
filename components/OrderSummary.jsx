@@ -19,7 +19,7 @@ const OrderSummary = () => {
         },
       });
       if (data.success) {
-        setUserAddresses(data);
+        setUserAddresses(data.addressData);
       }
     } catch (err) {
       console.error("Error fetching user addresses:", err);
