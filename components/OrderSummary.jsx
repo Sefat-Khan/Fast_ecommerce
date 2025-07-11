@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 
@@ -12,7 +13,7 @@ const OrderSummary = () => {
   const fetchUserAddresses = async () => {
     try {
       const token = await getToken();
-      const data = await fetch("/api/user/address/get", {
+      const { data } = await axios.get("/api/user/address/get", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
