@@ -21,7 +21,6 @@ const AddAddress = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    console.log("Submitting address:", address);
     try {
       const token = await getToken();
       const data = await axios.post(

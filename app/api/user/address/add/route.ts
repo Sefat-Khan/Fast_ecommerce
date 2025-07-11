@@ -9,6 +9,8 @@ export async function POST(req) {
 
     const { address } = await req.json();
 
+    console.log("Received address:", address);
+
     if (address) {
       await connectDB();
       const newAddress = await Address.create({ ...address, userId });
