@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     const { userId } = getAuth(req);
 
-    const { address } = await req.address();
+    const { address } = await req.json();
 
     console.log("Received address:", address);
 
@@ -29,7 +29,7 @@ export async function POST(req) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      message: "Internal Server Error",
+      message: "Internal Server Error " + err.message,
     });
   }
 }
