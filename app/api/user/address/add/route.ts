@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     const { userId } = getAuth(req);
 
-    const { address } = await req.json();
+    const { address } = await req.address();
 
     console.log("Received address:", address);
 
