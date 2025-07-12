@@ -47,7 +47,7 @@ const OrderSummary = () => {
 
     let cartItemsArray = Object.keys(cartItems).map((key) => ({
       product: key,
-      quantity: cartItems.quantity,
+      quantity: cartItems[key],
     }));
     cartItemsArray = cartItemsArray.filter((item) => item.quantity > 0);
 
