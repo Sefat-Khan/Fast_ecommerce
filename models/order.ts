@@ -1,8 +1,13 @@
 import mongoose, { Document, Model } from "mongoose";
 
+interface IOrderItem {
+  product: string;
+  quantity: number;
+}
+
 interface IOrder extends Document {
   userId: string;
-  items: [];
+  items: IOrderItem[];
   amount: number;
   address: string;
   status: string;
@@ -13,14 +18,14 @@ const orderSchema = new mongoose.Schema<IOrder>({
   userId: { type: String, required: true },
   items: [
     {
-      product: { type: String, require: true, ref: "Product" },
+      product: { type: String, required: true, ref: "Product" },
       quantity: { type: Number, required: true },
     },
   ],
   amount: { type: Number, required: true },
-  address: { type: String, required: true, ref: "address" },
+  address: { type: String, required: true, ref: "Address" },
   status: { type: String, required: true, default: "pending" },
-  date: { type: Date },
+  date: { type: Date, default: Date.now },
 });
 
 type OrderModel = Model<IOrder>;
