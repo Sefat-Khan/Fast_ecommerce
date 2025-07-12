@@ -13,7 +13,7 @@ export async function POST(req) {
 
     if (address && items.length > 0) {
       const amount = items.reduce(async (total, item) => {
-        const product = await Product.findById(item.productId);
+        const product = await Product.findById(item.product || item.productId);
         return total + product.price * item.quantity;
       }, 0);
 
