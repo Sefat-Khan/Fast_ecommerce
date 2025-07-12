@@ -1,4 +1,5 @@
 import { Inngest } from "inngest";
+import Order from "../models/order";
 import User from "../models/user";
 import { connectDB } from "./db";
 
@@ -83,5 +84,39 @@ export const syncUserDelete = inngest.createFunction(
       logger.error("Failed to delete user:", error);
       throw error; // Re-throw to mark the function as failed
     }
+  }
+);
+
+//Inngest Functions to create user order's in database
+
+export const createUserOrder = inngest.createFunction(
+  {
+    id: "create-user-event",
+    batchEvents: {
+      maxSize: 25,
+      timeout: "3s", // 1 second
+    },
+  },
+  {
+    event: "order/created",
+  },
+  async ({ events }) => {
+    const orders = events.map(async (event) => {
+      return {
+        userId: event.data.userId,
+        items: event.data.items,
+        amount: event.data.amount,
+        address: event.data.address,
+        date: event.data.date,
+      };
+    });
+
+    await connectDB();
+    await Order.insertMany(orders);
+    return {
+      success: true,
+      message: "Orders created successfully",
+      processed: orders.length,
+    };
   }
 );
