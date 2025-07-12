@@ -51,6 +51,8 @@ const OrderSummary = () => {
     }));
     cartItemsArray = cartItemsArray.filter((item) => item.quantity > 0);
 
+    console.log("cartItemsArray:", cartItemsArray);
+
     if (cartItemsArray.length === 0) {
       return toast.error("You cart is empty");
     }
