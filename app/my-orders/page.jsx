@@ -24,7 +24,7 @@ const MyOrders = () => {
       });
 
       if (data.success) {
-        setOrders(data.orderData.reverse());
+        setOrders(data.orders.reverse());
         setLoading(false);
       } else {
         toast.error(data.message);
