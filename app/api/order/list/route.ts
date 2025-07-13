@@ -7,7 +7,7 @@ export async function GET(req) {
   try {
     const { userId } = getAuth(req);
 
-    console.log(userId);
+    console.log("Authenticated User ID:", userId);
 
     if (!userId) {
       return NextResponse.json(
