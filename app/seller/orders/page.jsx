@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { assets } from "../../../assets/assets";
 import Footer from "../../../components/Footer";
 import Loading from "../../../components/Loading";
