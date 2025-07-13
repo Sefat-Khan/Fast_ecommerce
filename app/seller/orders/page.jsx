@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { assets } from "../../../assets/assets";
+import { assets, orderDummyData } from "../../../assets/assets";
 import Footer from "../../../components/Footer";
 import Loading from "../../../components/Loading";
 import { useAppContext } from "../../../context/AppContext";
@@ -13,22 +13,25 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchSellerOrders = async () => {
-    try {
-      const token = await getToken();
+    // try {
+    //   const token = await getToken();
 
-      const { data } = await axios.get("/api/order/seller_list", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    //   const { data } = await axios.get("/api/order/seller_list", {
+    //     headers: { Authorization: `Bearer ${token}` },
+    //   });
 
-      if (data.success) {
-        setOrders(data.orders.reverse());
-        setLoading(false);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (err) {
-      toast.error(data.message);
-    }
+    //   if (data.success) {
+    //     setOrders(data.orders.reverse());
+    //     setLoading(false);
+    //   } else {
+    //     toast.error(data.message);
+    //   }
+    // } catch (err) {
+    //   toast.error(data.message);
+    // }
+
+    setOrders(orderDummyData);
+    setLoading(false);
   };
 
   useEffect(() => {
