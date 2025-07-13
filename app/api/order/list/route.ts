@@ -9,7 +9,9 @@ export async function GET(req) {
 
     await connectDB();
 
-    const orderData = await Order.find({ userId });
+    const orderData = await Order.find({ userId }).populate(
+      "address items.product"
+    );
     return NextResponse.json({
       success: true,
       orderData,
