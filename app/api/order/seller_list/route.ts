@@ -13,7 +13,7 @@ export async function GET(req) {
     if (isSeller) {
       await connectDB();
 
-      const orders = await Order.find({});
+      const orders = await Order.find({}).populate("address items.product");
       return NextResponse.json({
         success: true,
         orders,
