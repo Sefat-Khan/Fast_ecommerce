@@ -28,7 +28,7 @@ const Orders = () => {
         toast.error(data.message);
       }
     } catch (err) {
-      toast.error(data.message);
+      toast.error(err.message);
     }
   };
 
