@@ -9,7 +9,7 @@ import Navbar from "../../components/Navbar";
 import { useAppContext } from "../../context/AppContext";
 
 const MyOrders = () => {
-  const { currency, getToken } = useAppContext();
+  const { currency, getToken, user } = useAppContext();
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,8 +31,10 @@ const MyOrders = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    if (user) {
+      fetchOrders();
+    }
+  }, [user]);
 
   return (
     <>

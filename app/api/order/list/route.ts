@@ -19,7 +19,7 @@ export async function GET(req) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      message: "Failed to fetched order",
+      message: `Failed to fetched order${err}`,
     });
   }
 }
