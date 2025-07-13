@@ -9,10 +9,20 @@ export async function GET(req) {
 
     await connectDB();
 
-    const orderData = await Order.find({ userId }).populate([
-      { path: "address" },
-      { path: "items.product", model: "Product" },
-    ]);
+    console.log(`Fetching orders for user: ${userId}`); // Debug log
+
+    const orderData = await Order.find({ userId })
+      .populate({
+        path: "address",
+        model: "Address",
+      })
+      .populate({
+        path: "items.product",
+        model: "Product",
+      })
+      .lean(); // Convert to plain JavaScript objects
+
+    console.log(`Found ${orderData.length} orders`);
 
     return NextResponse.json({
       success: true,
