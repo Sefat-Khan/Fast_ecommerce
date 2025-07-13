@@ -2,7 +2,8 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { assets, orderDummyData } from "../../assets/assets";
+import toast from "react-hot-toast";
+import { assets } from "../../assets/assets";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import Navbar from "../../components/Navbar";
@@ -15,18 +16,21 @@ const MyOrders = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchOrders = async () => {
-    const token = getToken();
+    try {
+      const token = getToken();
 
-    const { data } = await axios.get("/api/order/list", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+      const { data } = await axios.get("/api/order/list", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    if (data.success) {
-      setOrders(data);
-      setLoading(false);
-    } else {
-      setOrders(orderDummyData);
-      setLoading(false);
+      if (data.success) {
+        setOrders(data.orderData.reverse());
+        setLoading(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      toast.error(data.message);
     }
   };
 
