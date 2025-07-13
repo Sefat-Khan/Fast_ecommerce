@@ -7,6 +7,16 @@ export async function GET(req) {
   try {
     const { userId } = getAuth(req);
 
+    if (!userId) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Unauthorized user.",
+        },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
 
     const orderData = await Order.find({ userId }).populate(
