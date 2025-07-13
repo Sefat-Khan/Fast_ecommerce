@@ -1,7 +1,9 @@
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { connectDB } from "../../../../config/db";
+import Address from "../../../../models/address";
 import Order from "../../../../models/order";
+import Product from "../../../../models/product";
 
 export async function GET(req) {
   try {
@@ -9,7 +11,12 @@ export async function GET(req) {
 
     await connectDB();
 
-    const orderData = await Order.findById({ userId: userId });
+    Address.length;
+    Product.length;
+
+    const orderData = await Order.find({ userId }).populate(
+      "address, items.product"
+    );
 
     return NextResponse.json({
       success: true,
