@@ -51,8 +51,6 @@ const OrderSummary = () => {
     }));
     cartItemsArray = cartItemsArray.filter((item) => item.quantity > 0);
 
-    console.log("cartItemsArray:", cartItemsArray);
-
     if (cartItemsArray.length === 0) {
       return toast.error("You cart is empty");
     }
@@ -82,8 +80,6 @@ const OrderSummary = () => {
       fetchUserAddresses();
     }
   }, [user]);
-
-  console.log("cartItems:", cartItems);
 
   return (
     <div className="w-full md:w-96 bg-gray-500/5 p-5">

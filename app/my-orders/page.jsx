@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { assets, orderDummyData } from "../../assets/assets";
@@ -8,14 +9,25 @@ import Navbar from "../../components/Navbar";
 import { useAppContext } from "../../context/AppContext";
 
 const MyOrders = () => {
-  const { currency } = useAppContext();
+  const { currency, getToken } = useAppContext();
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchOrders = async () => {
-    setOrders(orderDummyData);
-    setLoading(false);
+    const token = getToken();
+
+    const { data } = await axios.get("/api/order/list", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (data.success) {
+      setOrders(data);
+      setLoading(false);
+    } else {
+      setOrders(orderDummyData);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
