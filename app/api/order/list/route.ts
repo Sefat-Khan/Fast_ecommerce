@@ -11,13 +11,12 @@ export async function GET(req) {
 
     await connectDB();
 
-    const orderData = await Order.find({ userId }).populate(
+    const orders = await Order.find({ userId }).populate(
       "address items.product"
     );
     return NextResponse.json({
       success: true,
-      orderData,
-      message: "Order fetched successfully",
+      orders,
     });
   } catch (err) {
     return NextResponse.json({

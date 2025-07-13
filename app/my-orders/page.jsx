@@ -17,7 +17,7 @@ const MyOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const token = getToken();
+      const token = await getToken();
 
       const { data } = await axios.get("/api/order/list", {
         headers: { Authorization: `Bearer ${token}` },
