@@ -1,7 +1,7 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
 interface IOrderItem {
-  product: string;
+  product: mongoose.Types.ObjectId;
   quantity: number;
 }
 
@@ -9,7 +9,7 @@ interface IOrder extends Document {
   userId: string;
   items: IOrderItem[];
   amount: number;
-  address: string;
+  address: mongoose.Types.ObjectId;
   status: string;
   date: Date;
 }
@@ -18,12 +18,12 @@ const orderSchema = new mongoose.Schema<IOrder>({
   userId: { type: String, required: true },
   items: [
     {
-      product: { type: String, required: true, ref: "Product" },
+      product: { type: Schema.Types.ObjectId, required: true, ref: "Product" },
       quantity: { type: Number, required: true },
     },
   ],
   amount: { type: Number, required: true },
-  address: { type: String, required: true, ref: "Address" },
+  address: { type: Schema.Types.ObjectId, required: true, ref: "Address" },
   status: { type: String, required: true, default: "pending" },
   date: { type: Date, default: Date.now },
 });
