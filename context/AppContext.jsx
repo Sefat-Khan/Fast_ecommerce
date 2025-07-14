@@ -20,7 +20,7 @@ export const AppContextProvider = (props) => {
 
   const [products, setProducts] = useState([]);
   const [userData, setUserData] = useState(null);
-  const [isSeller, setIsSeller] = useState(true);
+  const [isSeller, setIsSeller] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [isActive, setIsActive] = useState(false);
 
